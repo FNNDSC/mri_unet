@@ -12,7 +12,8 @@ import keras.models as models
 from skimage.transform import resize
 from skimage.io import imsave
 import numpy as np
-
+import pfmisc
+import time
 np.random.seed(256)
 import tensorflow as tf
 
@@ -242,7 +243,7 @@ class mri_unet(object):
         print('-'*30)
 
 
-        imgs_train, imgs_mask_train = load_train_data(options)
+        imgs_train, imgs_mask_train = load_train_data(self)
         imgs_mask_train = imgs_mask_train.astype('float32')
         imgs_train = imgs_train.astype('float32')
         imgs_mask_train /= 255.  # scale masks to [0, 1]
@@ -353,14 +354,9 @@ class mri_unet(object):
         print('Prediction finished')
         print('-'*30)
 
-    def run(self, options):
+    def run(self):
     
-        if options.mode == "1":
-            self.train(options)
-        elif options.mode == "2":
-            self.predict(options)
-        else:
-            print("You have selected invalid option for conversion")
+        self.train(self)
 
 
 class object_factoryCreate:
@@ -373,17 +369,9 @@ class object_factoryCreate:
         """
         Parse relevant CLI args.
         """
-        str_outputFileStem, str_outputFileExtension = os.path.splitext(args.outputFileStem)
-        if len(str_outputFileExtension):
-            str_outputFileExtension = str_outputFileExtension.split('.')[1]
         
-        if not len(args.outputFileType) and len(str_outputFileExtension):
-            args.outputFileType = str_outputFileExtension
 
-        if len(str_outputFileExtension):
-            args.outputFileStem = str_outputFileStem
-
-        self.C_convert = mgz2imgslices(
+        self.C_convert = mri_unet(
             inputFile            = args.inputFile,
             inputDir             = args.inputDir,
             outputDir            = args.outputDir,

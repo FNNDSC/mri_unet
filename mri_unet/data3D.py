@@ -17,9 +17,9 @@ image_depth = 16
 
 def create_train_data(options):
     #train_data_path = os.path.join(options.inputdir, 'train/')
-    train_data_path=options.inputdir+"/train/"
+    train_data_path=options.inputDir+"/train/"
     #mask_data_path = os.path.join(options.inputdir, 'masks/')
-    mask_data_path=options.inputdir+'/masks/'
+    mask_data_path=options.inputDir+'/masks/'
     dirs = os.listdir(train_data_path)
     total = int(len(dirs)*16*2)
 
@@ -128,9 +128,9 @@ def create_train_data(options):
 
 
 def load_train_data(options):
-    imgs_train = np.load(os.path.join(options.inputdir,'imgs_train.npy'))
+    imgs_train = np.load(os.path.join(options.str_inputDir,'imgs_train.npy'))
     #imgs_train = np.load('imgs_train.npy')
-    imgs_mask_train = np.load(os.path.join(options.inputdir,'imgs_mask_train.npy'))
+    imgs_mask_train = np.load(os.path.join(options.inputDir,'imgs_mask_train.npy'))
 
     #imgs_mask_train = np.load('imgs_mask_train.npy')
     return imgs_train, imgs_mask_train
