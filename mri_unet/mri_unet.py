@@ -255,12 +255,12 @@ class mri_unet(object):
         print('-'*30)
 
         model = self.get_unet()
-        weight_dir =options.outputdir +'/weights'
+        weight_dir =self.str_outputDir +'/weights'
         if not os.path.exists(weight_dir):
             os.mkdir(weight_dir)
         model_checkpoint = ModelCheckpoint(os.path.join(weight_dir, project_name + '.h5'), monitor='val_loss', save_best_only=True)
 
-        log_dir = options.outputdir+'/logs'
+        log_dir = self.str_outputDir+'/logs'
         if not os.path.exists(log_dir):
             os.mkdir(log_dir)
         csv_logger = CSVLogger(os.path.join(log_dir,  project_name + '.txt'), separator=',', append=False)
@@ -270,7 +270,7 @@ class mri_unet(object):
         print('-'*30)
 
 
-        model.fit(imgs_train, imgs_mask_train, batch_size=1, epochs=options.epochs, verbose=1, shuffle=True, validation_split=0.10, callbacks=[model_checkpoint, csv_logger])
+        model.fit(imgs_train, imgs_mask_train, batch_size=1, epochs=10, verbose=1, shuffle=True, validation_split=0.10, callbacks=[model_checkpoint, csv_logger])
 
 
 

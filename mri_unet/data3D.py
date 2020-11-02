@@ -130,7 +130,7 @@ def create_train_data(options):
 def load_train_data(options):
     imgs_train = np.load(os.path.join(options.str_inputDir,'imgs_train.npy'))
     #imgs_train = np.load('imgs_train.npy')
-    imgs_mask_train = np.load(os.path.join(options.inputDir,'imgs_mask_train.npy'))
+    imgs_mask_train = np.load(os.path.join(options.str_inputDir,'imgs_mask_train.npy'))
 
     #imgs_mask_train = np.load('imgs_mask_train.npy')
     return imgs_train, imgs_mask_train
